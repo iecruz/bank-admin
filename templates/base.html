@@ -45,15 +45,17 @@
     <header>
         <nav class="z-depth-1">
             <div class="nav-wrapper light-blue">
-                <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large">
-                    <i class="material-icons">menu</i>
-                </a>
-                <a href="#" class="brand-logo"><i class="material-icons">account_balance</i>ABS</a>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li>
-                        <a href="{{ url_for('main.index') }}">Home</a>
-                    </li>
-                </ul>
+                <div class="container">
+                    <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large">
+                        <i class="material-icons">menu</i>
+                    </a>
+                    <a href="#" class="brand-logo"><i class="material-icons">account_balance</i>ABS</a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li>
+                            <a href="{{ url_for('main.index') }}"><i class="material-icons left">home</i>Home</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>
@@ -132,7 +134,14 @@
             <div class="container">
                 {% for message in messages %}
                 <div class="card-panel light-blue white-text">
-                    {{ message }}
+                    <!-- <h5>
+                        Notifications
+                        <i class="material-icons right" onclick="closeNotification(event)">close</i>
+                    </h5>
+                    <br> -->
+                    <!-- <p> -->
+                        {{ message }}
+                    <!-- </p> -->
                 </div>
                 {% endfor %}
             </div>
@@ -148,6 +157,11 @@
         $(document).ready(function () {
             $('.sidenav').sidenav();
         });
+
+        function closeNotification(e) {
+            e.preventDefault();
+            $(e.target).closest('.section').fadeOut();
+        }
     </script>
     {% block script %} {% endblock %}
 </body>

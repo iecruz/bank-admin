@@ -69,8 +69,8 @@ class UpdateUserForm(FlaskForm):
 class CreateAccountForm(FlaskForm):
     user_id = IntegerField('User ID', [Required()])
     def validate_user_id(form, field):
-        if not User.get_or_none(User.id == field.data):
-            raise ValidationError('User does not exists')
+        if not User.get_or_none((User.id == field.data) & (User.type == 9)):
+            raise ValidationError('Customer does not exists')
             
     pin = IntegerField('PIN', [Required(), NumberRange(1000,9999)])
     balance = DecimalField('Initial Deposit', [Required(), NumberRange(1000)], places=2)

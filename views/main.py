@@ -123,19 +123,25 @@ def time_deposit():
 def withdraw():
     form = TransactionForm(request.form)
     if form.validate_on_submit():
-        Account.update(
-            balance = Account.balance - form.amount.data,
-            updated_at = datetime.now()
-        ).where(Account.account_number == form.account_number.data).execute()
+        account = Account.get(Account.account_number == form.account_number.data)
 
-        Transaction.insert(
-            account_number = form.account_number.data,
-            reference_number = form.account_number.data,
-            amount = form.amount.data,
-            type = 'WITHDRAW'
-        ).execute()
-        flash('Withdraw successful')
-        return redirect(url_for('main.withdraw'))
+        if account.balance - form.amount.data <= 0:
+            flash('Withdraw amount is greater than account remaining balance')
+            
+        else:
+            Account.update(
+                balance = Account.balance - form.amount.data,
+                updated_at = datetime.now()
+            ).where(Account.account_number == form.account_number.data).execute()
+
+            Transaction.insert(
+                account_number = form.account_number.data,
+                reference_number = form.account_number.data,
+                amount = form.amount.data,
+                type = 'WITHDRAW'
+            ).execute()
+            flash('Withdraw successful')
+            return redirect(url_for('admin.withdraw'))
     return render_template('main/withdraw.html', form=form)
 
 @bp.route('/transfer', methods=['GET', 'POST'])
