@@ -103,7 +103,7 @@ def time_deposit():
 
         TimeDeposit.insert(
             account_number = form.account_number.data,
-            initial_amount = form.amount.data,
+            amount = form.amount.data,
             interest = interest_ref[form.duration.data],
             terminal_date = datetime.now() + timedelta(days=form.duration.data*30)
         ).execute()
