@@ -35,7 +35,7 @@ def withdraw():
             .get()
         ).amounts
 
-        if float(total_amount) + float(request.form.get('amount')) > 25000:
+        if total_amount and float(total_amount) + float(request.form.get('amount')) > 25000:
             flash('You have reached the daily maximum withdraw limit')
 
         elif int(request.form.get('amount')) < 500:
