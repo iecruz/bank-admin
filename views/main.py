@@ -141,7 +141,7 @@ def withdraw():
                 type = 'WITHDRAW'
             ).execute()
             flash('Withdraw successful')
-            return redirect(url_for('admin.withdraw'))
+            return redirect(url_for('main.withdraw'))
     return render_template('main/withdraw.html', form=form)
 
 @bp.route('/transfer', methods=['GET', 'POST'])
