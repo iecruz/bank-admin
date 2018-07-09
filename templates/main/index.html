@@ -33,7 +33,7 @@
                     </div>
                     <div class="section">
                         <center>
-                            <a href="{{ url_for('main.logout') }}" class="btn-large waves-effect grey lighten-3 black-text">
+                            <a href="{{ url_for('main.logout') }}" class="btn-large btn-block waves-effect grey lighten-3 black-text">
                                 <i class="material-icons left">exit_to_app</i>Logout</a>
                         </center>
                     </div>
@@ -66,28 +66,28 @@
             <div class="col s12">
                 <div class="card-panel light-blue white-text">
                     <h5 class="center-align">Transaction</h5>
-                    <br>
-                    <center>
-                        <a href="{{ url_for('main.deposit') }}" class="btn-large waves-effect grey lighten-3 black-text">
-                            <i class="material-icons left">arrow_upwards</i>Deposit</a>
+                    <div class="row">
+                        <div class="col s12 m6">
+                            <a href="{{ url_for('main.deposit') }}" class="btn-large btn-block waves-effect grey lighten-3 black-text">
+                                <i class="material-icons left">arrow_upwards</i>Deposit</a>
 
-                        <a href="{{ url_for('main.withdraw') }}" class="btn-large waves-effect grey lighten-3 black-text">
-                            <i class="material-icons left">arrow_downwards</i>Withdraw</a>
+                            <a href="{{ url_for('main.withdraw') }}" class="btn-large btn-block waves-effect grey lighten-3 black-text">
+                                <i class="material-icons left">arrow_downwards</i>Withdraw</a>
 
-                        <a href="{{ url_for('main.transfer') }}" class="btn-large waves-effect grey lighten-3 black-text">
-                            <i class="material-icons left">swap_horizontal</i>Transfer Funds</a>
-                    </center>
-                    <br>
-                    <center>
-                        <a href="{{ url_for('main.inquiry') }}" class="btn-large waves-effect grey lighten-3 black-text">
-                            <i class="material-icons left">account_balance_wallet</i>Balance inquiry</a>
+                            <a href="{{ url_for('main.transfer') }}" class="btn-large btn-block waves-effect grey lighten-3 black-text">
+                                <i class="material-icons left">swap_horizontal_circle</i>Transfer Funds</a>
+                        </div>
+                        <div class="col s12 m6">
+                            <a href="{{ url_for('main.inquiry') }}" class="btn-large btn-block waves-effect grey lighten-3 black-text">
+                                <i class="material-icons left">account_balance_wallet</i>Balance inquiry</a>
 
-                        <a href="{{ url_for('main.time_deposit') }}" class="btn-large waves-effect grey lighten-3 black-text">
-                            <i class="material-icons left">access_time</i>Time Deposit</a>
+                            <a href="{{ url_for('main.time_deposit') }}" class="btn-large btn-block waves-effect grey lighten-3 black-text">
+                                <i class="material-icons left">access_time</i>Time Deposit</a>
 
-                        <a href="{{ url_for('main.history') }}" class="btn-large waves-effect grey lighten-3 black-text">
-                            <i class="material-icons left">history</i>View Transaction History</a>
-                    </center>
+                            <a href="{{ url_for('main.history') }}" class="btn-large btn-block waves-effect grey lighten-3 black-text">
+                                <i class="material-icons left">history</i>Transaction History</a>
+                        </div>
+                    </div>
                 </div>
             </div>
             {% endif %}
@@ -138,4 +138,11 @@
         window.myLine = new Chart(ctx, config);
     };
 </script> -->
+{% endblock %} {% block css %}
+<style>
+    .btn-block {
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+</style>
 {% endblock %}

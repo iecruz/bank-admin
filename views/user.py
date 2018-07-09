@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from werkzeug.security import generate_password_hash
 from core.models import User
-from core.forms import CreateUserForm, UpdateUserForm
+from core.forms import CreateUserForm, UpdateUserForm, ChangePasswordForm
 from core.wrappers import authenticated
 
 from datetime import datetime
@@ -60,6 +60,18 @@ def update(id):
         flash('User successfully updated')
         return redirect(url_for('user.index'))
     return render_template('user/update.html', form=form, user=user)
+
+@bp.route('/change_password', methods=['GET', 'POST'])
+@authenticated
+def change_password():
+    form = ChangePasswordForm(request.form)
+    if form.validate_on_submit():
+        User.update(
+            password = generate_password_hash(form.new_password.data),
+        ).where(User.id == form.user_id.data).execute()
+        flash('Password successfully changed')
+        return redirect(url_for('user.index'))
+    return render_template('user/change_password.html', form=form)
 
 @bp.route('/deactivate/<int:id>', methods=['POST'])
 @authenticated

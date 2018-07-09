@@ -52,6 +52,21 @@ class CreateUserForm(FlaskForm):
         (1, 'Administrator')
     ], coerce=int)
 
+class ChangePasswordForm(FlaskForm):
+    user_id = IntegerField('User ID', [Required()])
+    def validate_user_id(form, field):
+        if not User.get_or_none(User.id == field.data):
+            raise ValidationError('User does not exist')
+
+    current_password = PasswordField('Current Password', [Required(), Length(8)])
+    def validate_current_password(form, field):
+        user = User.get_or_none(User.id == form.user_id.data)
+        if not user or not check_password_hash(user.password, field.data):
+            raise ValidationError('Password does not match your current password')
+
+    new_password = PasswordField('New Password', [Required(), Length(8), EqualTo('confirm_password', message='Password must match')])
+    confirm_password = PasswordField('Confirm New Password', [Required(), Length(8)])
+
 class UpdateUserForm(FlaskForm):
     first_name = StringField('First Name', [Required()])
     middle_name = StringField('Middle Name', [Required()])
