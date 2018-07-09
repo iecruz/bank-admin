@@ -33,9 +33,9 @@ def withdraw():
                 (Transaction.type == 'ATM WITHDRAW')
             )
             .get()
-        ).amounts
+        ).amounts or 0
 
-        if total_amount and float(total_amount) + float(request.form.get('amount')) > 25000:
+        if float(total_amount) + float(request.form.get('amount')) > 25000:
             flash('You have reached the daily maximum withdraw limit')
 
         elif int(request.form.get('amount')) < 500:
